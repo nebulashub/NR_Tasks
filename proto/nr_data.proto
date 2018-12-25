@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package nr_server.proto;
+
+message Item {
+  string address = 1;
+  string in_outs = 2;
+  string out_val = 3;
+  string in_val = 4;
+  string degrees = 5;
+  string out_degree = 6;
+  string in_degree = 7;
+  string weight = 8;
+  string median = 9;
+  string score = 10;
+  string date = 11;
+  int32 order = 12;
+}
+
+message Data {
+  repeated Item items = 1;
+}
