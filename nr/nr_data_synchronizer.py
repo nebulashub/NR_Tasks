@@ -49,15 +49,21 @@ class NrDataSynchronizer(object):
             if self._running:
                 return
             self._running = True
-            if self._check_can_sync():
-                if not self._sync():
-                    time.sleep(10)
+            try:
+                if self._check_can_sync():
+                    if not self._sync():
+                        time.sleep(10)
+                    self._running = False
+                    self.start()
+                else:
+                    self._running = False
+                    self._start_timer()
+                    self._logger.log('%s start timer.' % self.__class__.__name__)
+            except Exception as e:
+                self._logger.log_err(e)
+                time.sleep(10)
                 self._running = False
                 self.start()
-            else:
-                self._running = False
-                self._start_timer()
-                self._logger.log('%s start timer.' % self.__class__.__name__)
 
     def _sync(self) -> bool:
         try:

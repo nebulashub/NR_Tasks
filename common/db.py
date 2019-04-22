@@ -41,7 +41,7 @@ def execute(sql):
         with DB.cursor() as cursor:
             cursor.execute(sql, None)
     except Exception as e:
-        if 'Lost connection to MySQL' in str(e):
+        if 'Lost connection to MySQL' in str(e) or 'MySQL server has gone away' in str(e):
             _re_init()
         raise e
 
@@ -52,7 +52,7 @@ def execute_and_fetchone(sql):
             cursor.execute(sql, None)
             return cursor.fetchone()
     except Exception as e:
-        if 'Lost connection to MySQL' in str(e):
+        if 'Lost connection to MySQL' in str(e) or 'MySQL server has gone away' in str(e):
             _re_init()
         raise e
 
@@ -63,7 +63,7 @@ def execute_and_fetchall(sql):
             cursor.execute(sql, None)
             return cursor.fetchall()
     except Exception as e:
-        if 'Lost connection to MySQL' in str(e):
+        if 'Lost connection to MySQL' in str(e) or 'MySQL server has gone away' in str(e):
             _re_init()
         raise e
 
